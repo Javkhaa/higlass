@@ -78,7 +78,8 @@ export const TRACKS_INFO = [
     },
     availableOptions: ['labelPosition', 'labelColor', 'labelTextOpacity', 'labelBackgroundOpacity',
       'colorRange', 'maxZoom', 'dataTransform', 'colorbarPosition',
-      'trackBorderWidth', 'trackBorderColor', 'heatmapValueScaling', 'showMousePosition'],
+      'trackBorderWidth', 'trackBorderColor', 'heatmapValueScaling', 'showMousePosition',
+      'scaleRange',],
     // exportable: true
   },
   {

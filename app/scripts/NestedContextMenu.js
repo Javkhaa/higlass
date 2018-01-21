@@ -27,6 +27,19 @@ export class NestedContextMenu extends ContextMenuContainer {
 
       const menuItem = this.state.submenuShown;
 
+      if (menuItem.component) {
+        console.log('hey');
+        // this item provides its own component
+        return React.cloneElement(menuItem.component, 
+          { 
+            position,
+            orientation: this.state.orientation,
+            parentBbox: bbox,
+          });;
+      }
+
+      // if it doesn't provide its own component, we just assume
+      // that it's actually 
       return (
         <NestedContextMenu
           menuItems={menuItem.children}
@@ -54,11 +67,11 @@ export class NestedContextMenu extends ContextMenuContainer {
         <ContextMenuItem
           key={menuItemKey}
           onClick={menuItem.handler ? menuItem.handler : () => null}
-          onMouseEnter={menuItem.children ? e => this.handleItemMouseEnter(e, menuItem) : this.handleOtherMouseEnter.bind(this)}
+          onMouseEnter={(menuItem.children || menuItem.component) ? e => this.handleItemMouseEnter(e, menuItem) : this.handleOtherMouseEnter.bind(this)}
           onMouseLeave={this.handleMouseLeave}
         >
           {menuItem.name}
-          {menuItem.children &&
+          {(menuItem.children || menuItem.component) &&
             <svg
               styleName="play-icon"
             >

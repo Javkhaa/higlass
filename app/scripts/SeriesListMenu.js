@@ -3,6 +3,7 @@ import React from 'react';
 import ContextMenuContainer from './ContextMenuContainer';
 import ContextMenuItem from './ContextMenuItem';
 import NestedContextMenu from './NestedContextMenu';
+import TextInputMenu from './TextInputMenu.js';
 
 // Configs
 import {
@@ -63,6 +64,7 @@ export class SeriesListMenu extends ContextMenuContainer {
           }
         }
 
+        console.log('OPTIONS_INFO', OPTIONS_INFO[optionType]);
         if (OPTIONS_INFO[optionType].inlineOptions) {
           // we can simply select this option from the menu
           for (const inlineOptionKey in OPTIONS_INFO[optionType].inlineOptions) {
@@ -80,6 +82,8 @@ export class SeriesListMenu extends ContextMenuContainer {
             };
 
 
+            console.log('inlineOption', inlineOption);
+
             // is there a custom component available for picking this
             // option type value (e.g. 'custom' color scale)
             if (inlineOption.componentPickers &&
@@ -88,6 +92,22 @@ export class SeriesListMenu extends ContextMenuContainer {
                 this.props.onConfigureTrack(track, inlineOption.componentPickers[track.type]);
                 this.props.closeMenu();
               };
+            } else if (inlineOption.textInputOptions) {
+              optionSelectorSettings.component = (
+                  <TextInputMenu 
+                    inputOptions={inlineOption.textInputOptions}
+                    onSubmit={(optionTypes, optionValues) => {
+                        // new values have been entered
+                        for (let i = 0; i < keys.length; i++) {
+                          track.options[optionTypes[i]] = optionValues[i];
+                        }
+
+                        this.props.onTrackOptionsChanged(track.uid, track.options);
+                      }
+                    }
+                    onCancel={() => this.props.closeMenu()}
+                  />
+                );
             } else {
               // the menu option defines a potential value for this option
               // type (e.g. "top right")
@@ -98,6 +118,7 @@ export class SeriesListMenu extends ContextMenuContainer {
               };
             }
 
+
             menuItems[optionType].children[inlineOptionKey] = optionSelectorSettings;
           }
         } else if (OPTIONS_INFO[optionType].componentPickers &&
@@ -107,7 +128,7 @@ export class SeriesListMenu extends ContextMenuContainer {
             this.props.onConfigureTrack(track, OPTIONS_INFO[optionType].componentPickers[track.type]);
             this.props.closeMenu();
           };
-        }
+        } 
       }
     }
 

@@ -54,6 +54,19 @@ export const OPTIONS_INFO = {
       log: { name: 'Log', value: 'log' },
     },
   },
+  scaleRange: {
+    name: 'Value Scale Range',
+    inlineOptions: {
+      auto:  { name: 'Auto', value: 'auto' },
+      explicitRange: {
+        name: 'Explicit Range',
+        textInputOptions: [     // a list because we presumably want to display them in some order
+          {name: 'Minimum Value', value: 'scaleMin'},
+          {name: 'Maximum Value', value: 'scaleMax'}
+        ]
+      },
+    },
+  },
   lineStrokeWidth: {
     name: 'Stroke Width',
     inlineOptions: AVAILABLE_WIDTHS,
