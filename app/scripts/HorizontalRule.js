@@ -20,6 +20,7 @@ export const HorizontalRuleMixin = Mixin((superclass) => class extends superclas
 
     let dashLength = 5;
     let dashGap = 3;
+    console.log('this.position:', this.position);
 
     // console.log('this._yScale.range()', this._yScale.range());
 

@@ -23,6 +23,8 @@ export class SVGTrack extends Track {
   }
 
   setPosition(newPosition) {
+    console.log('setting position:', newPosition);
+
     this.position = newPosition;
 
     this.gMain.attr('transform', `translate(${this.position[0]},${this.position[1]})`);

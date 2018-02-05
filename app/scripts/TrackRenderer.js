@@ -45,6 +45,7 @@ import ViewportTrackerHorizontal from './ViewportTrackerHorizontal';
 import ViewportTrackerVertical from './ViewportTrackerVertical';
 
 import HorizontalRule from './HorizontalRule';
+import HorizontalD3Rule from './HorizontalD3Rule';
 import VerticalRule from './VerticalRule';
 import CrossRule from './CrossRule';
 
@@ -1295,11 +1296,19 @@ export class TrackRenderer extends React.Component {
         );
 
       case 'horizontal-rule':
+          /*
         return new HorizontalRule(
           this.pStage,
           track.y,
           track.options,
           () => this.currentProps.onNewTilesLoaded(track.uid),
+        );
+        */
+
+        return new HorizontalD3Rule(
+          this.svgElement,
+          track.y,
+          track.options,
         );
 
       case 'vertical-rule':
